@@ -1,7 +1,7 @@
-def ft_count_harvest_recursive():
+def ft_count_harvest_recursive() -> None:
     days = int(input("Days until harvest: "))
 
-    def count_up(current):
+    def count_up(current: int) -> None:
         if current > days:
             return
         print(f"Day {current}")
