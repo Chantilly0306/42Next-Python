@@ -4,11 +4,11 @@ class Plant:
         self.height = height
         self.age = age
 
-    def show(self) -> None
+    def show(self):
         print(f"{self.name}: {self.height}cm, {self.age} days old")
 
 
-def main() -> None:
+def main():
     print("=== Garden Plant Registry ===")
 
     rose = Plant("Rose", 25, 30)
