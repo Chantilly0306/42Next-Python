@@ -161,5 +161,5 @@ int main(int argc, char **argv)
         j++;
     }
     free(floats);
-    printf("%.4f", res);
+    printf("%s = %.4f\n", argv[1], res);
 }
