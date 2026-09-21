@@ -6,7 +6,7 @@ def number_base_converter(number: str, from_base: int, to_base: int) -> str:
     base1, base2 = digit[:from_base], digit[:to_base]
 
     ten_base = 0
-    for c in number[::-1]:
+    for c in number:
         pos = base1.find(c)
         if pos == -1:
             return "ERROR"
