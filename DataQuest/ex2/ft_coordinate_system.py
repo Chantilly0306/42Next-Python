@@ -4,8 +4,10 @@ import math
 
 
 def get_player_pos() -> tuple:
-    str = input("Enter new coordinates as floats in format ’x,y,z’: ")
+    input_str = input("Enter new coordinates as floats in format ’x,y,z’: ")
     strs = str.split(",")
+    for s in strs:
+        s.strip()
     
     return ()
 
