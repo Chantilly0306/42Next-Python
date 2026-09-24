@@ -26,7 +26,7 @@ class NonArgument(Exception):
     def __init__(self, message: str = "No valid argument"):
         super().__init__(message)
 
-    
+
 def is_numeric(args: list[str]) -> list[int]:
     valid_scores: list[int] = []
 
@@ -36,7 +36,7 @@ def is_numeric(args: list[str]) -> list[int]:
         except ValueError:
             print(f"Invalid parameter: '{arg}'")
 
-    return(valid_scores)
+    return valid_scores
 
 
 def main():
@@ -45,7 +45,7 @@ def main():
 
     if not scores:
         try:
-            raise NonArgument(f"No scores provided.")
+            raise NonArgument("No scores provided.")
         except NonArgument as e:
             print(f"{e} Usage: python3 {sys.argv[0]} <score1> <score2> ...")
             return

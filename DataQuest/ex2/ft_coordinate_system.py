@@ -10,7 +10,7 @@ class InvalidInput(Exception):
 def get_player_pos() -> tuple:
     input_str = input("Enter new coordinates as floats in format ’x,y,z’: ")
     input_str = input_str.replace(" ", "")
-    
+
     if input_str.count(',') != 2:
         try:
             raise InvalidInput
@@ -31,7 +31,7 @@ def get_player_pos() -> tuple:
 
 
 def get_distance(p1: tuple, p2: tuple = (0, 0, 0)) -> float:
-    return round(math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2 
+    return round(math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2
                            + (p1[2] - p2[2]) ** 2), 4)
 
 

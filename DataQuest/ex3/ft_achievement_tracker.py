@@ -24,24 +24,23 @@ def main() -> None:
         "Charlie": gen_player_achievements(),
         "Dylan": gen_player_achievements()
     }
-    
+
     for name, achievements in players.items():
         print(f"Player {name}: {achievements}")
-        
+
     print(f"All distinct achievements: {set().union(*players.values())}\n")
     print(f"Common achievements: {set.intersection(*players.values())}\n")
-    
+
     for name, achievements in players.items():
-        others = set().union(*(o_achi for o_name, o_achi in players.items() 
+        others = set().union(*(o_achi for o_name, o_achi in players.items()
                                if o_name != name))
         print(f"Only {name} has: {achievements.difference(others)}")
-    
+
     print("\n")
     all_possible = set(ALL_ACHIEVEMENTS)
     for name, achievements in players.items():
         print(f"{name} is missing: {all_possible.difference(achievements)}")
-    
-    
+
+
 if __name__ == "__main__":
     main()
-    
