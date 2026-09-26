@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+import typing
 
 
 def main():
@@ -7,6 +8,7 @@ def main():
         return print("Usage: ft_ancient_text.py <file>")
     print("=== Cyber Archives Recovery ===")
     print(f"Accessing file '{sys.argv[1]}'")
+    f: typing.Optional[typing.IO[str]] = None
     try:
         f = open(sys.argv[1], mode="r")
         print("---\n")
@@ -16,6 +18,9 @@ def main():
         print(f"File '{sys.argv[1]}' closed.")
     except Exception as e:
         print(f"Error opening file '{sys.argv[1]}': {e}")
+    finally:
+        if f is not None:
+            f.close()
 
 
 if __name__ == "__main__":
