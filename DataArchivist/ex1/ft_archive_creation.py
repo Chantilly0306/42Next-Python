@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import typing
 
 
 def main():
@@ -8,7 +7,7 @@ def main():
         return print("Usage: ft_archive_creation.py <file>")
     print("=== Cyber Archives Recovery & Preservation ===")
     print(f"Accessing file '{sys.argv[1]}'")
-    f: typing.Optional[typing.IO[str]] = None
+    f = None
     try:
         f = open(sys.argv[1], mode="r")
         print("---\n")
@@ -35,7 +34,7 @@ def main():
         return print("Not saving data.")
 
     print(f"Saving data to '{new_file}'")
-    out_file: typing.Optional[typing.IO[str]] = None
+    out_file = None
     try:
         out_file = open(new_file, mode="w")
         out_file.write(new_content)
@@ -44,7 +43,7 @@ def main():
         print(f"Error saving file '{new_file}': {e}")
     finally:
         if out_file is not None:
-            f.close()
+            out_file.close()
 
 
 if __name__ == "__main__":

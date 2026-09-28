@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import sys
-import typing
 
 
 def main():
@@ -8,7 +7,7 @@ def main():
         return print("Usage: ft_ancient_text.py <file>")
     print("=== Cyber Archives Recovery ===")
     print(f"Accessing file '{sys.argv[1]}'")
-    f: typing.Optional[typing.IO[str]] = None
+    f = None
     try:
         f = open(sys.argv[1], mode="r")
         print("---\n")
