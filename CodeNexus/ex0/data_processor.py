@@ -20,9 +20,9 @@ class DataProcessor(ABC):
         if not self._data:
             raise IndexError("No data to output")
         item: str = self._data.pop(0)
-        current_rank: int = self._rank
+        rank: int = self._rank
         self._rank += 1
-        return (current_rank, item)
+        return (rank, item)
 
 
 class NumericProcessor(DataProcessor):
