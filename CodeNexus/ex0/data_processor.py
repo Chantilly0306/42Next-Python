@@ -1,4 +1,4 @@
-#/usr/bin/env python3
+#!/usr/bin/env python3
 from abc import ABC, abstractmethod
 from typing import Any, Union
 
@@ -56,7 +56,7 @@ class TextProcessor(DataProcessor):
 
     def ingest(self, data: Union[str, list[str]]) -> None:
         if not self.validate(data):
-            raise ValueError("Improper numeric data")
+            raise ValueError("Improper text data")
         if isinstance(data, list):
             for x in data:
                 self._data.append(x)
@@ -94,7 +94,7 @@ class LogProcessor(DataProcessor):
 
 
 def main():
-    print("=== Code Nexus Data Processor ===")
+    print("=== Code Nexus - Data Processor ===")
 
     print("\nTesting Numeric Processor...")
     num_proc = NumericProcessor()

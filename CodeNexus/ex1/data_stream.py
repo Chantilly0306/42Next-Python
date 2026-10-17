@@ -70,7 +70,7 @@ class TextProcessor(DataProcessor):
 
     def ingest(self, data: Union[str, list[str]]) -> None:
         if not self.validate(data):
-            raise ValueError("Improper numeric data")
+            raise ValueError("Improper text data")
         if isinstance(data, list):
             for x in data:
                 self._data.append(x)
@@ -145,7 +145,7 @@ class DataStream:
 
 
 def main():
-    print("=== Code Nexus Data Stream ===\n")
+    print("=== Code Nexus - Data Stream ===\n")
     print("Initialize Data Stream.")
     ds = DataStream()
     ds.print_processors_stats()
