@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from typing import Any, Union
+from typing import Any, Union, Protocol
 
 
 class DataProcessor(ABC):
@@ -108,6 +108,27 @@ class LogProcessor(DataProcessor):
         else:
             self._data.append(f"{data['log_levle']}: {data['log_message']}")
             self.total_processed += 1
+
+
+class ExportPlugin(Protocol):
+    def process_output(self, data: list[tuple[int, str]]):
+        ...
+
+
+class CSVExportPlugin:
+    def process_output(self, data: list[tuple[int, str]]):
+        if not data:
+            return
+        csv_str = ", ".join(val for _, val in data)
+        print("CSV Output:")
+        print(csv_str)
+
+
+class JSONExportPlugin:
+    def process_output(self, data: list[tuple[int, str]]):
+        if not data:
+            return
+        items = []
 
 
 class DataStream:
