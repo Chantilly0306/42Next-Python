@@ -130,7 +130,8 @@ class DataStream:
                     handled = True
                     break
             if not handled:
-                print(f"DataStream error Can't process element in stream: {item}")
+                print("DataStream error Can't process element in stream: ",
+                      item)
 
     def print_processors_stats(self) -> None:
         print("== DataStream statistics ==")
@@ -158,7 +159,8 @@ def main():
         "Hello world",
         [3.14, -1, 2.71],
         [
-            {"log_level": "WARNING", "log_message": "Telnet access! Use ssh instead"},
+            {"log_level": "WARNING",
+             "log_message": "Telnet access! Use ssh instead"},
             {"log_level": "INFO", "log_message": "User wil is connected"}
         ],
         42,
@@ -179,7 +181,8 @@ def main():
     ds.process_stream(batch)
     ds.print_processors_stats()
 
-    print("\nConsume some elements from the data processors: Numeric 3, Text 2, Log 1")
+    print("\nConsume some elements from the data processors: "
+          "Numeric 3, Text 2, Log 1")
     for _ in range(3):
         num_proc.output()
     for _ in range(2):
