@@ -22,7 +22,7 @@ class NormalStrategy(BattleStrategy):
         return True
 
     def act(self, creature: typing.Any) -> list[str]:
-        return creature.attack()
+        return [creature.attack()]
 
 
 class AggressiveStrategy(BattleStrategy):
@@ -49,7 +49,8 @@ class DefensiveStrategy(BattleStrategy):
     def act(self, creature: typing.Any) -> list[str]:
         if not self.is_valid(creature):
             raise InvalidStrategyError(
-                f"Invalid Creature '{creature.name}' for this defensive strategy"
+                f"Invalid Creature '{creature.name}' "
+                "for this defensive strategy"
             )
         actions = []
         actions.append(creature.attack())

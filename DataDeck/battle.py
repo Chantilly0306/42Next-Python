@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import typing
-from ex0 import FlameFactory, AquaFactory
+from ex0 import FlamelingFactory, AquaFactory
 
 
 def test_factory(factory: typing.Any):
@@ -30,7 +30,7 @@ def test_battle(factory1, factory2):
 
 
 def main():
-    flame_factory = FlameFactory()
+    flame_factory = FlamelingFactory()
     aqua_factory = AquaFactory()
 
     test_factory(flame_factory)

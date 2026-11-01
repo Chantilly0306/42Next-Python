@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from ex1 import HealingCreatureFactory, TransformCreatureFactory
+from ex1 import HealingFactory, TransformFactory
 
 
 def test_healing_creatures() -> None:
     print("Testing Creature with healing capability")
-    factory = HealingCreatureFactory()
+    factory = HealingFactory()
 
     print("base:")
     base = factory.create_base()
@@ -23,7 +23,7 @@ def test_healing_creatures() -> None:
 
 def test_transform_creatures():
     print("Testing Creature with transform capability")
-    factory = TransformCreatureFactory()
+    factory = TransformFactory()
 
     print("base:")
     base = factory.create_base()

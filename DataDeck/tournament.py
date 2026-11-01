@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import typing
-from ex0 import FlameFactory, AquaFactory
-from ex1 import HealingCreatureFactory, TransformCreatureFactory
+from ex0 import FlamelingFactory, AquaFactory
+from ex1 import HealingFactory, TransformFactory
 from ex2 import (
     NormalStrategy,
     AggressiveStrategy,
@@ -15,8 +15,8 @@ def run_tournament(name: str, opponents: list[tuple[typing.Any, typing.Any]]):
 
     formatted_opponents = []
     for fact, strat in opponents:
-        f_name = fact.__class__.__name__[:5]
-        s_name = strat.__class__.__name__[:5]
+        f_name = fact.__class__.__name__[:-7]
+        s_name = strat.__class__.__name__[:-8]
         formatted_opponents.append(f"({f_name}+{s_name})")
     print(f"[{', '.join(formatted_opponents)}]")
 
@@ -24,10 +24,7 @@ def run_tournament(name: str, opponents: list[tuple[typing.Any, typing.Any]]):
     print(f"{len(opponents)} opponents involved")
 
     for i in range(len(opponents)):
-        for j in range(len(opponents)):
-            if i >= j:
-                continue
-
+        for j in range(i + 1, len(opponents)):
             fact1, strat1 = opponents[i]
             fact2, strat2 = opponents[j]
 
@@ -41,31 +38,23 @@ def run_tournament(name: str, opponents: list[tuple[typing.Any, typing.Any]]):
             print("now fight!")
 
             try:
-                if not strat1.is_valid(c1):
-                    raise InvalidStrategyError(
-                        f"Invalid Creature '{c1.name}' "
-                        "for this aggressive strategy"
-                    )
-                for act in strat1.act(c1):
-                    print(act)
+                actions1 = strat1.act(c1)
+                for action in actions1:
+                    print(action)
 
-                if not strat2.is_valid(c2):
-                    raise InvalidStrategyError(
-                        f"Invalid Creature '{c2.name}' "
-                        "for this defensive strategy"
-                    )
-                for act in strat2.act(c2):
-                    print(act)
+                actions2 = strat2.act(c2)
+                for action in actions2:
+                    print(action)
 
             except InvalidStrategyError as e:
                 print(f"Battle error, aborting tournament: {e}")
 
 
 def main():
-    flame_factory = FlameFactory()
+    flame_factory = FlamelingFactory()
     aqua_factory = AquaFactory()
-    healing_factory = HealingCreatureFactory()
-    transform_factory = TransformCreatureFactory()
+    healing_factory = HealingFactory()
+    transform_factory = TransformFactory()
 
     normal_strat = NormalStrategy()
     aggressive_strat = AggressiveStrategy()
@@ -78,7 +67,7 @@ def main():
             (healing_factory, defensive_strat),
         ],
     )
-
+    print("")
     run_tournament(
         "Tournament 1 (error)",
         [
@@ -86,7 +75,7 @@ def main():
             (healing_factory, defensive_strat),
         ],
     )
-
+    print("")
     run_tournament(
         "Tournament 2 (multiple)",
         [

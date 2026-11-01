@@ -12,7 +12,7 @@ class CreatureFactory(ABC):
         pass
 
 
-class FlameFactory(CreatureFactory):
+class FlamelingFactory(CreatureFactory):
     def create_base(self) -> Creature:
         return Flameling()
 

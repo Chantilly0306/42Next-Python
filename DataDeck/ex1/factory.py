@@ -3,7 +3,7 @@ from ex0.creature import Creature
 from .creature import Sproutling, Bloomelle, Shiftling, Morphagon
 
 
-class HealingCreatureFactory(CreatureFactory):
+class HealingFactory(CreatureFactory):
     def create_base(self) -> Creature:
         return Sproutling()
 
@@ -11,7 +11,7 @@ class HealingCreatureFactory(CreatureFactory):
         return Bloomelle()
 
 
-class TransformCreatureFactory(CreatureFactory):
+class TransformFactory(CreatureFactory):
     def create_base(self) -> Creature:
         return Shiftling()
 
