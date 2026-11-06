@@ -17,8 +17,10 @@ def status(is_virtual: bool):
             f"Environment Path:{sys.prefix}\n\n"
             "SUCCESS: You're in an isolated environment!\n"
             "Safe to install packages without affecting the global system.\n"
-            f"\nPackage installation path:{site.getsitepackages()}"
+            "\nPackage installation path:"
         )
+        for path in site.getsitepackages():
+            print(path)
     else:
         print(
             "WARNING: You're in the global environment!\n"
