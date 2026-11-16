@@ -105,7 +105,7 @@ def visualize_matrix_data(data: pd.DataFrame):
     print("\nResults saved to: matrix_analysis.png")
 
 
-if __name__ =="__main__":
+if __name__ == "__main__":
     if check_dependencies():
         compare_packages()
 

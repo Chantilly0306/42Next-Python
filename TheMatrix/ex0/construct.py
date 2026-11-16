@@ -5,12 +5,14 @@ import os
 
 
 def status(is_virtual: bool):
-    print("MATRIX STATUS: ",
-    "Welcome to the construct" if is_virtual else "You're still plugged in")
+    print("MATRIX STATUS: ", end="")
+    print(
+        "Welcome to the construct" if is_virtual else "You're still plugged in"
+    )
 
     print("\nCurrent Python:", sys.executable)
-    print("Virtual Environment: ",
-    os.path.basename(sys.prefix) if is_virtual else "None detected\n")
+    print("Virtual Environment: ", end="")
+    print(os.path.basename(sys.prefix) if is_virtual else "None detected\n")
 
     if is_virtual:
         print(

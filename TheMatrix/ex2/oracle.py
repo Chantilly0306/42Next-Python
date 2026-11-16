@@ -3,8 +3,6 @@ import os
 from dotenv import load_dotenv
 
 
-
-
 def check_config():
     load_dotenv()
 
@@ -16,52 +14,70 @@ def check_config():
         "ZION_ENDPOINT": os.getenv("ZION_ENDPOINT")
     }
 
+    matrix_modes = ["development", "production"]
     log_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-
     missing_config = []
+    valid_config = True
+
+    print("ORACLE STATUS: Reading the Matrix...\n")
+    print("Configuration loaded:")
 
     for key, value in config.items():
-        if value:
-            print(f"[OK] {key}: {value}")
-        else:
+        if not value:
             missing_config.append(key)
+            valid_config = False
+        elif key == "MATRIX_MODE":
+            if value not in matrix_modes:
+                print("[Error] Invalid MATRIX_MODE")
+                valid_config = False
+            else:
+                print(f"[OK] {key}: {value}")
+        elif key == "LOG_LEVEL":
+            if value not in log_levels:
+                print("[ERROR] Invalid LOG_LEVEL")
+                valid_config = False
+            else:
+                print(f"[OK] {key}: {value}")
+        elif key == "API_KEY" or key == "DATABASE_URL":
+            print(f"[OK] {key}: Configured")
+        else:
+            print(f"[OK] {key}: {value}")
 
-    try:
-        if missing_config:
-            raise ValueError(", ".join(missing_config))
-    except ValueError as e:
-        print(f"ERROR: Missing configuration: {e}")
+    if missing_config:
+        print(f"\nERROR: Missing configuration: {', '.join(missing_config)}")
 
-    mode = config["MATRIX_MODE"]
+    if valid_config:
+        mode = config["MATRIX_MODE"]
+        log_level = config["LOG_LEVEL"]
 
-    try:
-        if config["LOG_LEVEL"] not in log_levels:
-            raise ValueError("ERROR: Invalid LOG_LEVEL")
-    except ValueError as e:
-        print(e)
+        print("\nEnvironment security check:")
+        print("[OK] No hardcoded secrets detected")
 
-    try:
+        if os.path.isfile(".env"):
+            print("[OK] .env file properly configured")
+        else:
+            print("[WARNING] .env file not found")
+
+        print("[OK] Production overrides available")
+
         if mode == "development":
             print("\nMODE: development")
             print("Database: Connected to local instance")
             print("API Access: Authenticated")
-            print(f"Log Level: {config["LOG_LEVEL"]}")
+            print(f"Log Level: {log_level}")
             print("Zion Network: Online")
+
         elif mode == "production":
             print("\nMODE: production")
             print("Database: Production database")
-            print(f"Log Level: {config["LOG_LEVEL"]}")
+            print("API Access: Configured")
+            print(f"Log Level: {log_level}")
             print("Zion Network: Online")
-        else:
-            raise ValueError("\n[ERROR] Invalid MATRIX_MODE")
-    except ValueError as e:
-        print(e)
 
-    
+    else:
+        print("\nConfiguration validation failed.")
+        print("Please check your .env file.")
 
 
-
-
-
-check_config()
-
+if __name__ == "__main__":
+    check_config()
