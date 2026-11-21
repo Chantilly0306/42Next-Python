@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ValidationError
 
 
 class SpaceStation(BaseModel):
@@ -14,14 +14,41 @@ class SpaceStation(BaseModel):
     notes: str | None = Field(default=None, max_length=200)
 
 
-station_data = {
-    "station_id": "ISS754",
-    "name": "International Space Station",
-    "crew_size": 6,
-    "power_level": 85.5,
-    "oxygen_level": 95.0,
-    "last_maintenance": "2024-01-15T10:30:00"
-}
+def validate(data: dict):
+    try:
+        station = SpaceStation(**data)
+        print("Valid station created:")
+        print(f"ID: {station.station_id}")
+        print(f"Name: {station.name}")
+        print(f"Crew: {station.crew_size} people")
+        print(f"Power: {station.power_level}%")
+        print(f"Oxygen: {station.oxygen_level}%")
+        print(
+            "Status: ",
+            "Operational" if station.is_operational else "Inoperative"
+        )
+    except ValidationError as e:
+        print(e)
 
-station = SpaceStation(**station_data)
-print(type(station))
+
+def main():
+    print("Space Station Data Validation")
+    print("========================================")
+
+    station_data = {
+        "station_id": "ISS754",
+        "name": "International Space Station",
+        "crew_size": 6,
+        "power_level": 85.5,
+        "oxygen_level": 92.3,
+        "last_maintenance": "2024-01-15T10:30:00"
+    }
+    validate(station_data)
+
+    print("\n========================================")
+    station_data["crew_size"] = 21
+    validate(station_data)
+
+
+if __name__ == "__main__":
+    main()
