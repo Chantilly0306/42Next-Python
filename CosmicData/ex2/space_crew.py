@@ -48,6 +48,102 @@ class SpaceMission(BaseModel):
                 raise ValueError("Long missions (> 365 days) need 50% "
                     "experienced crew (5+ years)")
 
-        if self.
+        if not all(member.is_active for member in self.crew):
+            raise ValueError("All crew members must be active")
 
         return self
+
+
+def validate(data: dict):
+    try:
+        mission = SpaceMission(**data)
+        print("Valid mission created:")
+        print(f"Mission: {mission.mission_name}")
+        print(f"ID: {mission.mission_id}")
+        print(f"Destination: {mission.destination}")
+        print(f"Duration: {mission.duration_days} days")
+        print(f"Budget: ${mission.budget_millions}M")
+        print(f"Crew size: {len(mission.crew)}")
+        print("Crew members:")
+        for member in mission.crew:
+            print(f"- {member.name} ({member.rank.value}) - ",
+                member.specialization)
+    except ValidationError as e:
+        print("Validation Error:")
+        print(e)
+
+
+def main():
+    print("Space Mission Crew Validation")
+    print("=========================================")
+    data = {
+        "mission_id": "M2026001",
+        "mission_name": "Mars Exploration",
+        "destination": "Mars",
+        "launch_date": datetime(2026, 12, 1),
+        "duration_days": 500,
+        "crew": [
+            {
+                "member_id": "CM001",
+                "name": "Alice",
+                "rank": "captain",
+                "age": 32,
+                "specialization": "Engineering",
+                "years_experience": 8
+            },
+            {
+                "member_id": "CM002",
+                "name": "Bob",
+                "rank": "officer",
+                "age": 29,
+                "specialization": "Navigation",
+                "years_experience": 6
+            },
+            {
+                "member_id": "CM003",
+                "name": "Charlie",
+                "rank": "cadet",
+                "age": 24,
+                "specialization": "Science",
+                "years_experience": 2
+            },
+            {
+                "member_id": "CM004",
+                "name": "David",
+                "rank": "officer",
+                "age": 30,
+                "specialization": "Medicine",
+                "years_experience": 1
+            }
+        ],
+        "budget_millions": 500.0
+    }
+
+
+    print("\n=========================================")
+    validate({**data, data.mission_id: "A2026001"})
+
+    print("\n=========================================")
+    validate({
+        **data,
+        "crew": [{**member, "rank": "officer"} for member in data["crew"]]
+    })
+
+    print("\n=========================================")
+    validate({
+        **data,
+        "crew": [{**member, "years_experience": 3} for member in data["crew"]]
+    })
+
+    print("\n=========================================")
+    validate({
+        **data,
+        "crew": [
+            {**data["crew"][0], "is_active": False},
+            *data["crew"][1:]
+        ]
+    })
+
+
+if __name__ == "__main__":
+    main()

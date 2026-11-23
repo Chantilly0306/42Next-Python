@@ -77,10 +77,13 @@ def main():
 
     print("\n======================================")
     validate({**data, "contact_id": "BC_2024_001"})
+
     print("\n======================================")
     validate({**data, "contact_type": "physical"})
+
     print("\n======================================")
     validate({**data, "message_received": ""})
+
     print("\n======================================")
     validate({**data, "contact_type": "telepathic", "witness_count": 2})
 
