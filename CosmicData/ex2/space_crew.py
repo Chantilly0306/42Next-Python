@@ -69,7 +69,7 @@ def validate(data: dict):
             print(f"- {member.name} ({member.rank.value}) - ",
                 member.specialization)
     except ValidationError as e:
-        print("Validation Error:")
+        print("Expected validation error:")
         print(e)
 
 
@@ -77,51 +77,43 @@ def main():
     print("Space Mission Crew Validation")
     print("=========================================")
     data = {
-        "mission_id": "M2026001",
-        "mission_name": "Mars Exploration",
+        "mission_id": "M2026_MARS",
+        "mission_name": "Mars Colony Establishment",
         "destination": "Mars",
         "launch_date": datetime(2026, 12, 1),
-        "duration_days": 500,
+        "duration_days": 900,
         "crew": [
             {
                 "member_id": "CM001",
-                "name": "Alice",
-                "rank": "captain",
+                "name": "Sarah Connor",
+                "rank": "commander",
                 "age": 32,
-                "specialization": "Engineering",
+                "specialization": "Mission Command",
                 "years_experience": 8
             },
             {
                 "member_id": "CM002",
-                "name": "Bob",
-                "rank": "officer",
+                "name": "John Smith",
+                "rank": "lieutenant",
                 "age": 29,
                 "specialization": "Navigation",
                 "years_experience": 6
             },
             {
                 "member_id": "CM003",
-                "name": "Charlie",
-                "rank": "cadet",
-                "age": 24,
-                "specialization": "Science",
-                "years_experience": 2
-            },
-            {
-                "member_id": "CM004",
-                "name": "David",
+                "name": "Alice Johnson",
                 "rank": "officer",
-                "age": 30,
-                "specialization": "Medicine",
-                "years_experience": 1
+                "age": 24,
+                "specialization": "Engineering",
+                "years_experience": 2
             }
         ],
-        "budget_millions": 500.0
+        "budget_millions": 2500.0
     }
-
+    validate(data)
 
     print("\n=========================================")
-    validate({**data, data.mission_id: "A2026001"})
+    validate({**data, "mission_id": "A2026_MARS"})
 
     print("\n=========================================")
     validate({
