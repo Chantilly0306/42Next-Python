@@ -39,14 +39,17 @@ class SpaceMission(BaseModel):
 
         if not any(
             member.rank in (Rank.CAPTAIN, Rank.COMMANDER)
-            for member in self.crew):
+            for member in self.crew
+        ):
             raise ValueError("Must have at least one Commander or Captain")
 
         if self.duration_days > 365:
             veteran = sum(member.years_experience >= 5 for member in self.crew)
             if veteran < len(self.crew) / 2:
-                raise ValueError("Long missions (> 365 days) need 50% "
-                    "experienced crew (5+ years)")
+                raise ValueError(
+                    "Long missions (> 365 days) need 50% "
+                    "experienced crew (5+ years)"
+                )
 
         if not all(member.is_active for member in self.crew):
             raise ValueError("All crew members must be active")
@@ -66,8 +69,10 @@ def validate(data: dict):
         print(f"Crew size: {len(mission.crew)}")
         print("Crew members:")
         for member in mission.crew:
-            print(f"- {member.name} ({member.rank.value}) - ",
-                member.specialization)
+            print(
+                f"- {member.name} ({member.rank.value}) - ",
+                member.specialization
+            )
     except ValidationError as e:
         print("Expected validation error:")
         print(e)
